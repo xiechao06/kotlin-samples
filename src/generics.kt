@@ -14,7 +14,7 @@ class Source<out T>
 
 // Consumer in
 // "in" tells compiler that if A is superclass of B, then Source<B> is subclass of Source<A>
-interface Comparable<in T> {
+interface MyComparable<in T> {
     // compareTo consumes T, it is valid to be contravariant in parameter T,
     // that means, Comparable<Any> is subclass of Comparable<Int>(Comparable<? super T> in java) (whilst Int is subclass of Any, that
     // is why it is called contravariant)
@@ -28,10 +28,10 @@ interface Comparable<in T> {
     fun compareTo(other: T): Int
 }
 
-fun demo(x: Comparable<Number>) {
+fun demo(x: MyComparable<Number>) {
     x.compareTo(1.0)
-    val y: Comparable<Double> = x
-    val z: Comparable<Int> = x
+    val y: MyComparable<Double> = x
+    val z: MyComparable<Int> = x
 }
 
 // Type Array is both producer/consumer of type Any
@@ -68,7 +68,7 @@ fun <T : Comparable<T>> sort(list: List<T>) {
 // only subtypes of both Comparable<T> and Cloneable accepted
 fun <T> cloneWhenGreater(list: List<T>, threshold: T): List<T>
     where T : Comparable<T>, T : Cloneable {
-    return list.filter { it > threshold }.map { it.clone() }
+    return list.filter { it > threshold }
 }
 
 fun main(args: Array<String>) {
