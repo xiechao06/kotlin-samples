@@ -1,4 +1,4 @@
-package bar
+package barasdfasdf
 
 open class A(val x: Int) {
     public open val y = x
@@ -28,12 +28,27 @@ class MyClass1 {
     }
 }
 
+interface X {
+    fun x(v: Int): Int
+}
+
+fun f(x: X) {
+    println(x.x(10))
+}
+
 fun main(args: Array<String>) {
     // an object expression just works like anonymous inner classes
     var obj = object : A(1), B {
         override val y = 15
     }
     println(obj)
+
+    f(object : X {
+        override fun x(v: Int): Int {
+            return v * 2;
+        }
+
+    })
 
     // or just an object inherited from Any
     var adHoc = object {
